@@ -1760,11 +1760,9 @@ impl SolveApp {
             let _ = self.run_heavy(id, json!({}));
             return;
         }
-        // Change Part Size with no standard part selected: say what it takes, not the command's
-        // "`component` must be an id or a name" (#8735).
+        // Change Part Size with no standard part selected (its dialog had nothing to open on).
         if id == "parts.resize" {
-            let hint = self.tr("ui.part_size_needs_a_part").to_owned();
-            self.set_status(hint, true);
+            dialogs_part_size::needs_a_part(self);
             return;
         }
         let _ = self.run(id, json!({}));
